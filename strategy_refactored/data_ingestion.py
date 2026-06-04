@@ -44,18 +44,6 @@ class DataLoader:
         chunks["ts"]    = pd.to_datetime(chunks["ts"], format="mixed", utc=True)
         chunks["ts_et"] = chunks["ts"].dt.tz_convert("America/New_York")
 
-        # Optionally drop intraday news (market hours = absorbed by price action)
-        if self.config.market_open_hour is not None:
-            market_open_minutes = (
-                self.config.market_open_hour * 60 + self.config.market_open_minute
-            )
-            article_minutes = (
-                chunks["ts_et"].dt.hour * 60 + chunks["ts_et"].dt.minute
-            )
-            close_minutes = self.config.news_cutoff_hour * 60
-            is_intraday = (article_minutes >= market_open_minutes) & (article_minutes < close_minutes)
-            chunks = chunks[~is_intraday].copy()
-
         # Assign signal_date: articles at/after cutoff roll to next calendar day
         chunks["signal_date"] = chunks["ts_et"].dt.normalize().dt.tz_localize(None)
         after_close = chunks["ts_et"].dt.hour >= self.config.news_cutoff_hour

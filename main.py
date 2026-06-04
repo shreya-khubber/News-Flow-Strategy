@@ -12,11 +12,7 @@ from strategy_refactored import (
 
 # ── Configure ─────────────────────────────────────────────────────────────────
 # To hypertune: change any parameter here and re-run.
-# To run the pre-market-only variant: set market_open_hour=9, market_open_minute=30
-from pathlib import Path
-
 config = BacktestConfig(
-    report_dir        = Path(r"C:\Users\SHREYA\Desktop\Infer Edge Assignment Final\Backtest_Report_Temp"),
     lookback          = 10,
     min_periods       = 5,
     signal_clip       = 3.0,
@@ -24,7 +20,6 @@ config = BacktestConfig(
     min_universe      = 40,
     mid_lookback      = 5,
     news_cutoff_hour  = 16,
-    market_open_hour  = None,   # None = use all news (original strategy)
 )
 
 # ── Run pipeline ──────────────────────────────────────────────────────────────

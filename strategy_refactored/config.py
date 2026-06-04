@@ -10,9 +10,6 @@ class BacktestConfig:
 
     # ── News timing ───────────────────────────────────────────────────────────
     news_cutoff_hour: int = 16       # articles at/after this hour ET roll to next calendar day
-    # Set to filter intraday news (e.g. 9, 30 for 9:30 AM). None = no filter.
-    market_open_hour: int = None
-    market_open_minute: int = 30
 
     # ── Signal construction ───────────────────────────────────────────────────
     lookback:     int   = 10         # rolling window for z-score normalisation
